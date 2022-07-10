@@ -3,7 +3,7 @@ import win32gui
 from pynput.keyboard import Key
 from dataclasses import dataclass
 
-from utils.input_processor import send_text, send_multiple_keys, send_key
+from utils.input import send_text, send_multiple_keys, send_key
 
 @dataclass
 class EverQuestWindow:
