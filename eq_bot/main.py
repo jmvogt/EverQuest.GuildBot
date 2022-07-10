@@ -6,8 +6,12 @@ from utils.input import has_recent_input, get_timedelta_since_input
 
 # TODO: Move to configuration file
 TICK_LENGTH = 60
+EQ_PLAYER = 'Fanoen'
+EQ_SERVER = 'Mischief'
 
 window = EverQuestWindow()
+window.cycle_player_log(EQ_PLAYER, EQ_SERVER)
+
 guild_dump_manager = GuildDumpManager(window)
 
 while(True):
