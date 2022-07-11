@@ -17,8 +17,12 @@ EVERQUEST_ROOT_FOLDER=get_config('game.root_folder').rstrip("\\")
 
 
 class EverQuestWindow:
-    def __init__(self, player: CurrentPlayer):
-        self.player = player
+    def __init__(self):
+        self.player = CurrentPlayer(
+            name=get_config('player.name'),
+            server=get_config('player.server'),
+            guild=get_config('player.guild'))
+
         if get_config('player.autodetect'):
             if not self.player.name or not self.player.server:
                 self._lookup_current_player()
