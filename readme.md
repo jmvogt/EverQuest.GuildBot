@@ -5,6 +5,10 @@
 - Buff players with requested buffs. Can be configured to only buff guild memebers.
 - Observable log parser which can notify subscribed python functions when specific types of messages arrive.
 
+## Limitations
+- In order to interact with the game, this bot will force the EQ window to the foreground. The bot will only do this if there hasn't been input from your mouse/keyboard for a while, however, you will want to avoid any mouse/keyboard input while it is interacting with the EQ window. If possible, this will be updated in the future to communicate as a background process.
+- For granular guild tracking functionality such as determining who has logged in vs who has logged off, this bot will need to be ran indefinitely. However, the bot could be enabled ocassionally to perform a quick analysis of who has joined and left the guild since the last execution.
+
 ## Installation (Windows)
 
 1. Install Python3.7+
