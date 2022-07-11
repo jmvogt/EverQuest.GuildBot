@@ -91,7 +91,7 @@ class GuildTracker:
         
         self._last_dump = new_dump
 
-    def handle_tick(self):
+    def update_status(self):
         if not self._last_dump or datetime.now() + timedelta(seconds=-random.randint(FREQUENCY_MIN, FREQUENCY_MAX)) > self._last_dump.taken_at:
             self._create_dump()
 
@@ -99,5 +99,5 @@ class GuildTracker:
         if not self._last_dump:
             raise ValueError("Last dump has not yet been taken.")
         
-        # TODO: Change member structure so that we can more easily lookup by name..
+        # TODO: Change self.members structure so that we can more easily lookup by name..
         return contains(self._last_dump.members, lambda member: member.name.lower() == name.lower())

@@ -19,14 +19,11 @@ if get_config('buffing.enabled'):
     buff_manager = BuffManager(window, guild_tracker)
     player_log_reader.observe_messages(LogMessageType.TELL_RECEIVE, buff_manager.handle_tell_message)
 
-# Example log reader subscription. This will print all tells which are received.
-player_log_reader.observe_messages(LogMessageType.TELL_RECEIVE, lambda message: message.print())
-
 while(True):
     # Execute services which need to be activated periodically
     if not has_recent_input():
         if get_config('log_parsing.enabled', True):
             player_log_reader.process_new_messages()
         if get_config('guild_tracking.enabled'):
-            guild_tracker.handle_tick()
+            guild_tracker.update_status()
     time.sleep(TICK_LENGTH)
