@@ -40,3 +40,12 @@ Coming soon. Refer to example properties for now.
 ```powershell
 python .\eq_bot\main.py
 ```
+## Extending
+
+### Log Input
+
+To observe the log parser for a specific type of message, call the `observe_messages` function on startup in `main.py`.
+```python
+# Example log reader subscription. This will print all tells which are received.
+player_log_reader.observe_messages(LogMessageType.TELL_RECEIVE, lambda message: message.print())
+```
