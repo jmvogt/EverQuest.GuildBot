@@ -1,8 +1,8 @@
 # EQ Bot
 
 ## Features
-    - Perform regular guild dumps and notify remote discord channel of members who have logged on, logged off, joined the guild, or left the guild.
-    - Observable log parser which can notify subscribed python functions when specific types of messages arrive.
+- Perform regular guild dumps and notify remote discord channel of members who have logged on, logged off, joined the guild, or left the guild.
+- Observable log parser which can notify subscribed python functions when specific types of messages arrive.
 
 ## Installation (Windows)
 
