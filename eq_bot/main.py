@@ -7,8 +7,9 @@ from game.entities.player import CurrentPlayer
 from game.logging.entities.log_message import LogMessageType
 from utils.config import get_config
 
-EQ_PLAYER = get_config('player')
 EQ_SERVER = get_config('server')
+# TODO: Automatically lookup on initialization by checking output of /character command
+EQ_PLAYER = get_config('player')
 TICK_LENGTH = 1
 
 current_player = CurrentPlayer(name=EQ_PLAYER, server=EQ_SERVER)
@@ -21,12 +22,13 @@ if get_config('log_parsing.cycle_on_start'):
 
 guild_dump_manager = GuildDumpManager(window)
 
+# Example log reader subscription. This will print all tells which are received.
 player_log_reader.observe_messages(LogMessageType.TELL_RECEIVE, lambda message: message.print())
 
 while(True):
     if not has_recent_input():
-        if get_config('log_parsing.enabled'):
+        if get_config('log_parsing.enabled', True):
             player_log_reader.process_new_messages()
-        if get_config('guld_dumps.enabled'):
+        if get_config('guild_dumps.enabled'):
             guild_dump_manager.handle_tick()
     time.sleep(TICK_LENGTH)

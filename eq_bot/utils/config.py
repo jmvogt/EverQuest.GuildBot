@@ -21,5 +21,8 @@ def get_secret(secret_path: str) -> Any:
     return get_from_yaml(read_yaml(SECRETS_PATH), secret_path)
 
 
-def get_config(config_path: str) -> Any:
-    return get_from_yaml(read_yaml(CONFIG_PATH), config_path)
+def get_config(config_path: str, default_value=None) -> Any:
+    value = get_from_yaml(read_yaml(CONFIG_PATH), config_path)
+    if value is None and default_value is not None:
+        return default_value
+    return value

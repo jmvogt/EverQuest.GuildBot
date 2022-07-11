@@ -9,13 +9,14 @@ from utils.file import move_file, make_directory, get_files_from_directory
 from utils.config import get_config
 
 # TODO: Move to configuration file
-GUILD_DUMP_FILE_PREFIX='RMPD-Guild-Dump'
 DUMP_EXTENSION='.dump'
 DUMP_OUTPUT_FOLDER='output\\dumps\\guild'
 DUMP_TIME_FORMAT='%Y%m%d-%H%M%S'
-FREQUENCY_MIN=get_config('guild_dumps.interval_min')
-FREQUENCY_MAX=get_config('guild_dumps.interval_max')
+FREQUENCY_MIN=get_config('guild_dumps.interval_min', 300)
+FREQUENCY_MAX=get_config('guild_dumps.interval_max', 600)
 
+# TODO: Automatically lookup on initialization by checking output of /guildstat
+GUILD_DUMP_FILE_PREFIX='RMPD-Guild-Dump'
 
 class GuildDumpManager:
     def __init__(self, eq_window: EverQuestWindow):
