@@ -10,3 +10,4 @@ class Player:
 class CurrentPlayer:
     name: str
     server: str
+    guild: str

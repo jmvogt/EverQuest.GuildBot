@@ -15,6 +15,7 @@ class LogMessageType(Enum):
     SAY = 'Say'
     GROUP = 'Group'
     SHOUT = 'Shout'
+    GUILD_STAT = 'Guild Stat'
 
 @dataclass
 class LogMessage:

@@ -17,20 +17,20 @@ FREQUENCY_MIN=get_config('guild_tracking.interval_min', 300)
 FREQUENCY_MAX=get_config('guild_tracking.interval_max', 600)
 OUTPUT_TO_DISCORD=get_config('guild_tracking.output_to_discord')
 
-# TODO: Automatically lookup on initialization by checking output of /guildstat
-GUILD_DUMP_FILE_PREFIX='RMPD-Guild-Dump'
-
 class GuildTracker:
     def __init__(self, eq_window: EverQuestWindow):
         make_directory(DUMP_OUTPUT_FOLDER)
         self._eq_window = eq_window
         self._last_dump = self._lookup_most_recent_dump()
 
+    def _get_safe_guild_name(self):
+        return self._eq_window.player.guild.replace(' ', '-')
+
     def _lookup_most_recent_dump(self):
         previous_dump_files = get_files_from_directory(DUMP_OUTPUT_FOLDER, DUMP_EXTENSION)
         previous_dumps = []
         for dump_file in previous_dump_files:
-            dump_time = datetime.strptime(dump_file, f"{GUILD_DUMP_FILE_PREFIX}-{DUMP_TIME_FORMAT}{DUMP_EXTENSION}")
+            dump_time = datetime.strptime(dump_file, f"{self._get_safe_guild_name()}-Dump-{DUMP_TIME_FORMAT}{DUMP_EXTENSION}")
             previous_dumps.append(parse_dump_file(dump_time, f"{DUMP_OUTPUT_FOLDER}\{dump_file}"))
         previous_dumps.sort(key=lambda x: x.taken_at, reverse=True)
         return None if not previous_dumps else previous_dumps[0]
@@ -38,7 +38,7 @@ class GuildTracker:
     def _create_dump(self):
         dump_time = datetime.now()
         dump_time_str = dump_time.strftime(DUMP_TIME_FORMAT)
-        dump_filename = f"{GUILD_DUMP_FILE_PREFIX}-{dump_time_str}"
+        dump_filename = f"{self._get_safe_guild_name()}-Dump-{dump_time_str}"
         self._eq_window.guild_dump(dump_filename)
         output_filename = f"{DUMP_OUTPUT_FOLDER}\{dump_filename}{DUMP_EXTENSION}"
         move_file(f"{EVERQUEST_ROOT_FOLDER}\{dump_filename}.txt", output_filename)

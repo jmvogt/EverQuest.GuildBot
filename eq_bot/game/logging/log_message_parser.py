@@ -7,8 +7,8 @@ PLAYER_MESSAGES = ['tells', 'says', 'shouts', 'auctions', 'channel']
 def _parse_timestamp(input):
     return datetime.strptime(input, "[%a %b %d %H:%M:%S %Y]")
 
+# TODO: Simplify with regex
 def _parse_message_type(full_message, message_split):
-    message_without_name = ' '.join(message_split[2:])
     if message_split[1] == 'tells':
         # e.g. General:3
         if len(message_split[2].split(':')) > 1:
@@ -21,7 +21,7 @@ def _parse_message_type(full_message, message_split):
             elif message_split[3] == 'guild,':
                 return LogMessageType.GUILD
     elif message_split[1] == 'says':
-        if message_without_name.startswith('out of character,'):
+        if ' '.join(message_split[2:]).startswith('out of character,'):
             return LogMessageType.OUT_OF_CHARACTER
     elif message_split[1] == 'auctions,':
         return LogMessageType.AUCTION
@@ -30,8 +30,10 @@ def _parse_message_type(full_message, message_split):
     elif message_split[1] == 'says,':
         if len(message_split) == 3:
             return LogMessageType.SAY
-    elif message_without_name.startswith('You tell'):
+    elif full_message.startswith('You tell'):
         return LogMessageType.TELL_SEND
+    elif ' '.join(message_split[1:]).startswith('is the rank of'):
+        return LogMessageType.GUILD_STAT
     return LogMessageType.UNKNOWN
 
 def _parse_message_to(full_message, message_split, message_type):

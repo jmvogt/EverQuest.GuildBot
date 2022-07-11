@@ -1,6 +1,7 @@
 import os
 import shutil
 import yaml
+import glob
 
 from os import listdir
 from os.path import isfile, join
@@ -25,3 +26,10 @@ def get_files_from_directory(folder_path: str, file_ext: str) -> List[str]:
 def read_yaml(file_path: str) -> dict:
     with open(file_path, 'r') as file:
         return yaml.safe_load(file)
+
+def get_latest_modified_file(path_regex: str):
+    try:
+        return max(glob.iglob(path_regex), key=os.path.getmtime)
+    except:
+        # TODO: Log error
+        pass

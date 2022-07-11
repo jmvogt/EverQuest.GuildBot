@@ -55,6 +55,9 @@ class EverQuestLogReader:
 
     def observe_messages(self, message_type: LogMessageType, callback):
         self.get_observers(message_type).append(callback)
+    
+    def remove_observation(self, message_type: LogMessageType, callback):
+        self.get_observers(message_type).remove(callback)
 
     def _build_new_messages(self, lines_to_read):
         new_messages = []

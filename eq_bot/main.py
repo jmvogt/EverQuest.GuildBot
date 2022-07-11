@@ -8,12 +8,12 @@ from game.logging.entities.log_message import LogMessageType
 from game.buff.buff_manager import BuffManager
 from utils.config import get_config
 
-EQ_SERVER = get_config('server')
-# TODO: Automatically lookup on initialization by checking output of /character command
-EQ_PLAYER = get_config('player')
 TICK_LENGTH = 1
 
-current_player = CurrentPlayer(name=EQ_PLAYER, server=EQ_SERVER)
+current_player = CurrentPlayer(
+    name=get_config('player.name'),
+    server=get_config('player.server'),
+    guild=get_config('player.guild'))
 
 window = EverQuestWindow(current_player)
 player_log_reader = window.get_player_log_reader()

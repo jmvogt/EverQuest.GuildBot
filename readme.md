@@ -7,23 +7,24 @@
 
 ## Limitations
 - In order to interact with the game, this bot will force the EQ window to the foreground. The bot will only do this if there hasn't been input from your mouse/keyboard for a while, however, you will want to avoid any mouse/keyboard input while it is interacting with the EQ window. If possible, this will be updated in the future to communicate as a background process.
-- For granular guild tracking functionality such as determining who has logged in vs who has logged off, this bot will need to be ran indefinitely. However, the bot could be enabled ocassionally to perform a quick analysis of who has joined and left the guild since the last execution.
+- For granular guild tracking functionality such as determining who has logged in vs who has logged off, this bot will need to be ran indefinitely. However, the bot could be enabled occasionally to perform a quick analysis of who has joined and left the guild since the last execution.
+- Logging must be enabled in-game while the bot is running.
 
 ## Installation (Windows)
 
 1. Install Python3.7+
-1. (If using Powershell) Run the below command in Powershell as Adminsitrator to allow for execution of Python modules:
+2. (If using Powershell) Run the below command in Powershell as Adminsitrator to allow for execution of Python modules:
 ```powershell
 Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
 ```
-1. Clone down the repository locally
-1. From within a terminal (Powershell, bash, etc), navigate to the cloned repository
-1. Create and activate a new virtual environment
+3. Clone down the repository locally
+4. From within a terminal (Powershell, bash, etc), navigate to the cloned repository
+5. Create and activate a new virtual environment
 ```powershell
 python -m venv .venv
 .\.venv\Scripts\activate
 ```
-1. Install dependencies
+6. Install dependencies
 ```powershell
 pip install -r requirements.txt
 ```
