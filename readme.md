@@ -29,6 +29,12 @@ python -m venv .venv
 pip install -r requirements.txt
 ```
 
+7. If you intend to output guild status reports to discord, create a file named `secrets.yaml` at the project root and include your webhook config.
+```yaml
+webhooks:
+  guild-status-discord-url: https://discord.com/api/webhooks/################/#######################################
+```
+
 ## Configuration
 The `config.yaml` at the project root can be used to change the bot's default behavior.
 
@@ -42,7 +48,7 @@ Coming soon. Refer to example properties for now.
 .\.venv\Scripts\activate
 ```
 
-1. Run the bot
+2. Run the bot
 ```powershell
 python .\eq_bot\main.py
 ```

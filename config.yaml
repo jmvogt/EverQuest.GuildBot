@@ -1,6 +1,5 @@
 player:
   autodetect: true
-  server: Mischief
 log_parsing:
   enabled: true
   cycle_on_start: false

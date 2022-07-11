@@ -7,7 +7,7 @@ PLAYER_MESSAGES = ['tells', 'says', 'shouts', 'auctions', 'channel']
 def _parse_timestamp(input):
     return datetime.strptime(input, "[%a %b %d %H:%M:%S %Y]")
 
-# TODO: Simplify with regex
+# TODO: Simplify with a regex->LogMessageType map
 def _parse_message_type(full_message, message_split):
     if message_split[1] == 'tells':
         # e.g. General:3

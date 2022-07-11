@@ -20,7 +20,7 @@ class EverQuestWindow:
     def __init__(self, player: CurrentPlayer):
         self.player = player
         if get_config('player.autodetect'):
-            if not self.player.name:
+            if not self.player.name or not self.player.server:
                 self._lookup_current_player()
             if not self.player.guild:
                 self._lookup_current_guild()
@@ -64,8 +64,11 @@ class EverQuestWindow:
         # .. or just find a better way to handle this :)
         time.sleep(5)
         latest_file = get_latest_modified_file(f"{EVERQUEST_ROOT_FOLDER}\\UI_*")
-        search_result = re.search(r"UI_(.*)_.*", latest_file.split('\\')[-1])
-        self.player.name = search_result.group(1)
+        search_result = re.search(r"UI_(.*)_(.*).ini", latest_file.split('\\')[-1])
+        if not self.player.name:
+            self.player.name = search_result.group(1)
+        if not self.player.server:
+            self.player.server = search_result.group(2).capitalize()
 
     def _update_current_guild(self, message):
         # TODO: Handle during parsing with concrete message classes
