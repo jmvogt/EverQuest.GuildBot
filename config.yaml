@@ -1,11 +1,22 @@
-player: Maeby
+player: ExampleEnchanter
 server: Mischief
 log_parsing:
   enabled: true
   cycle_on_start: false
-guild_dumps:
+guild_tracking:
   enabled: true
   interval_min: 300
   interval_max: 600
+  output_to_discord: true
 game:
   root_folder: C:\Program Files (x86)\Steam\steamapps\common\Everquest F2P
+buffing:
+  enabled: true
+  restrict_to_guildies: true
+  spells:
+    Voice of Clarivoyance:
+      spell_slot: 6
+      cast_time: 12
+    Hastening of Salik:
+      spell_slot: 7
+      cast_time: 9

@@ -4,6 +4,7 @@ from datetime import datetime
 from game.entities.player import CurrentPlayer
 from game.logging.entities.log_message import LogMessageType
 from game.logging.log_message_parser import create_log_message
+from utils.config import get_config
 
 PLAYER_LOG_TIMESTAMP_FORMAT='%Y%m%d-%H%M%S'
 
@@ -17,6 +18,9 @@ class EverQuestLogReader:
         self.player = player
         self.observers = {}
         self._iterator = self._init_iterator()
+        
+        if get_config('log_parsing.cycle_on_start'):
+            self.cycle_player_log()
     
     def _get_log_filename(self):
         return f'eqlog_{self.player.name}_{self.player.server.lower()}'
@@ -58,7 +62,11 @@ class EverQuestLogReader:
             next_line = self._iterator.readline()
             if not next_line:
                 break
-            new_messages.append(create_log_message(next_line))
+            try:
+                new_messages.append(create_log_message(next_line))
+            except Exception as e:
+                # TODO: Switch to logger.error
+                print(f"Failed to process message: {next_line}. Exception: {e}")
         return new_messages
 
     def process_new_messages(self, lines_to_read=0):

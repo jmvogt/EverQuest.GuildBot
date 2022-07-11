@@ -7,18 +7,20 @@ from game.guild.dump_analyzer import build_differential
 from integrations.discord import send_discord_message
 from utils.file import move_file, make_directory, get_files_from_directory
 from utils.config import get_config
+from utils.array import contains
 
 # TODO: Move to configuration file
 DUMP_EXTENSION='.dump'
 DUMP_OUTPUT_FOLDER='output\\dumps\\guild'
 DUMP_TIME_FORMAT='%Y%m%d-%H%M%S'
-FREQUENCY_MIN=get_config('guild_dumps.interval_min', 300)
-FREQUENCY_MAX=get_config('guild_dumps.interval_max', 600)
+FREQUENCY_MIN=get_config('guild_tracking.interval_min', 300)
+FREQUENCY_MAX=get_config('guild_tracking.interval_max', 600)
+OUTPUT_TO_DISCORD=get_config('guild_tracking.output_to_discord')
 
 # TODO: Automatically lookup on initialization by checking output of /guildstat
 GUILD_DUMP_FILE_PREFIX='RMPD-Guild-Dump'
 
-class GuildDumpManager:
+class GuildTracker:
     def __init__(self, eq_window: EverQuestWindow):
         make_directory(DUMP_OUTPUT_FOLDER)
         self._eq_window = eq_window
@@ -84,10 +86,18 @@ class GuildDumpManager:
                         discord_message += f"{member.name} - {member.level} {member.class_type} {'(Alt)' if member.is_alt else ''}\n"
                     discord_message += "\n"
 
-                send_discord_message(discord_message + "\n")
+                if OUTPUT_TO_DISCORD:
+                    send_discord_message(discord_message + "\n")
         
         self._last_dump = new_dump
 
     def handle_tick(self):
         if not self._last_dump or datetime.now() + timedelta(seconds=-random.randint(FREQUENCY_MIN, FREQUENCY_MAX)) > self._last_dump.taken_at:
             self._create_dump()
+
+    def is_a_member(self, name):
+        if not self._last_dump:
+            raise ValueError("Last dump has not yet been taken.")
+        
+        # TODO: Change member structure so that we can more easily lookup by name..
+        return contains(self._last_dump.members, lambda member: member.name.lower() == name.lower())

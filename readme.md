@@ -2,6 +2,7 @@
 
 ## Features
 - Perform regular guild dumps and notify remote discord channel of members who have logged on, logged off, joined the guild, or left the guild.
+- Buff players with requested buffs. Can be configured to only buff guild memebers.
 - Observable log parser which can notify subscribed python functions when specific types of messages arrive.
 
 ## Installation (Windows)

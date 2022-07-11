@@ -39,3 +39,12 @@ class EverQuestWindow:
 
     def get_player_log_reader(self):
         return EverQuestLogReader(f'{EVERQUEST_ROOT_FOLDER}\\Logs', self.player)
+
+    def target(self, target):
+        self.send_chat_message(f"/target {target}")
+
+    def cast_spell(self, target, spell_name, spell_slot):
+        self.send_chat_message(f"/cast {spell_slot}")
+
+    def sit(self):
+        self.send_chat_message("/sit")

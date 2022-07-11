@@ -54,5 +54,6 @@ def create_log_message(raw_text):
         timestamp = _parse_timestamp(raw_text[0:26]),
         from_player = message_split[0] if is_player_message else None,
         to = _parse_message_to(full_message, message_split, message_type),
+        inner_message = message_split[-1] if is_player_message else None,
         full_message = full_message,
         message_type = message_type)
