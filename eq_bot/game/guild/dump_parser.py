@@ -5,8 +5,8 @@ from typing import List
 from datetime import datetime
 from dateutil.parser import parse
 
-from game.entities.guild_dump import GuildDump
-from game.entities.guild_member import GuildMember
+from game.guild.entities.guild_dump import GuildDump
+from game.guild.entities.guild_member import GuildMember
 
 def parse_guild_member(dump_time: datetime, member_arr: List[str]) -> GuildMember:
     zone = member_arr[6]

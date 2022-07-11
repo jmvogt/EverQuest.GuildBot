@@ -2,8 +2,8 @@ import random
 from datetime import datetime, timedelta
 from dataclasses import dataclass
 from game.window import EverQuestWindow, EVERQUEST_ROOT_FOLDER
-from game.guild_dump.parser import parse_dump_file
-from game.guild_dump.analyzer import build_differential
+from game.guild.dump_parser import parse_dump_file
+from game.guild.dump_analyzer import build_differential
 from integrations.discord import send_discord_message
 from utils.file import move_file, make_directory, get_files_from_directory
 

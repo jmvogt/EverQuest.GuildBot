@@ -1,5 +1,5 @@
-from game.entities.guild_dump import GuildDump
-from game.entities.guild_dump_differential import GuildDumpDifferential
+from game.guild.entities.guild_dump import GuildDump
+from game.guild.entities.guild_dump_differential import GuildDumpDifferential
 
 
 def build_differential(from_dump: GuildDump, to_dump: GuildDump) -> GuildDumpDifferential:

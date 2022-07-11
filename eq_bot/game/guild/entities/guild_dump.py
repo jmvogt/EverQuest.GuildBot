@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from typing import List
 from datetime import datetime
 
-from game.entities.guild_member import GuildMember
+from game.guild.entities.guild_member import GuildMember
 
 @dataclass
 class GuildDump:
