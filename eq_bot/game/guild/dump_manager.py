@@ -6,14 +6,15 @@ from game.guild.dump_parser import parse_dump_file
 from game.guild.dump_analyzer import build_differential
 from integrations.discord import send_discord_message
 from utils.file import move_file, make_directory, get_files_from_directory
+from utils.config import get_config
 
 # TODO: Move to configuration file
 GUILD_DUMP_FILE_PREFIX='RMPD-Guild-Dump'
 DUMP_EXTENSION='.dump'
 DUMP_OUTPUT_FOLDER='output\\dumps\\guild'
 DUMP_TIME_FORMAT='%Y%m%d-%H%M%S'
-FREQUENCY_MIN=300
-FREQUENCY_MAX=600
+FREQUENCY_MIN=get_config('guild_dumps.interval_min')
+FREQUENCY_MAX=get_config('guild_dumps.interval_max')
 
 
 class GuildDumpManager:

@@ -1,5 +1,5 @@
 from discord import Webhook, RequestsWebhookAdapter
-from utils.secrets import get_secret
+from utils.config import get_secret
 
 WEBHOOK_URL=get_secret('webhooks.guild-status-discord-url')
 

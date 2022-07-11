@@ -7,9 +7,10 @@ from game.entities.player import CurrentPlayer
 from game.logging.log_reader import EverQuestLogReader
 
 from utils.input import send_text, send_multiple_keys, send_key
+from utils.config import get_config
 
-# TODO: Move to configuration file
-EVERQUEST_ROOT_FOLDER='C:\\Program Files (x86)\\Steam\\steamapps\\common\\Everquest F2P'
+
+EVERQUEST_ROOT_FOLDER=get_config('game.root_folder')
 
 
 @dataclass

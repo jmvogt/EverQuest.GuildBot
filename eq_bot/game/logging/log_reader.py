@@ -5,8 +5,9 @@ from game.entities.player import CurrentPlayer
 from game.logging.entities.log_message import LogMessageType
 from game.logging.log_message_parser import create_log_message
 
-# TODO: Move to configuration file
 PLAYER_LOG_TIMESTAMP_FORMAT='%Y%m%d-%H%M%S'
+
+# TODO: Move to configuration file
 MAX_LINES_READ = 100
 
 class EverQuestLogReader:
