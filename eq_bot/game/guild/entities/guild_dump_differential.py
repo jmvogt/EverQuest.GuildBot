@@ -9,7 +9,7 @@ from game.guild.entities.guild_member import GuildMember
 class GuildDumpDifferential:
     new_members: List[GuildMember]
     left_members: List[GuildMember]
-    offduty_members: List[GuildMember]
+    inactive_members: List[GuildMember]
     logged_on: List[GuildMember]
     logged_off: List[GuildMember]
     delta_time: timedelta
@@ -18,7 +18,7 @@ class GuildDumpDifferential:
     def has_differences(self):
         return len(self.new_members) > 0 or \
             len(self.left_members) > 0 or \
-            len(self.offduty_members) > 0 or \
+            len(self.inactive_members) > 0 or \
             len(self.logged_on) > 0 or \
             len(self.logged_off) > 0
 
@@ -33,8 +33,8 @@ class GuildDumpDifferential:
             member.print()
         print('\n')
 
-        print('-------- Off Duty Members --------')
-        for member in self.offduty_members:
+        print('-------- Inactive Members --------')
+        for member in self.inactive_members:
             member.print()
         print('\n')
 

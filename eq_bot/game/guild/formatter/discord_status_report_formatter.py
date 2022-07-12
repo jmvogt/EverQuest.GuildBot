@@ -1,8 +1,9 @@
 from game.guild.entities.guild_dump_differential import GuildDumpDifferential
-from game.guild.dump_analyzer import DAYS_UNTIL_OFF_DUTY
+from game.guild.entities.dkp_summary_differential import DkpSummaryDifferential
+from game.guild.dump_analyzer import DAYS_UNTIL_INACTIVE
 
-class DiscordDumpFormatter:
-    def build_output(self, dump_differential: GuildDumpDifferential) -> str:
+class DiscordStatusReportFormatter:
+    def build_output(self, dump_differential: GuildDumpDifferential, dkp_summary_differential: DkpSummaryDifferential) -> str:
         minutes = dump_differential.delta_time.total_seconds() / 60
         hours = minutes / 60
         minutes = int(minutes % 60)
@@ -19,10 +20,10 @@ class DiscordDumpFormatter:
                 discord_message += f"+ {member.name} - {member.level} {member.class_type} {'(Alt)' if member.is_alt else ''}\n"
             discord_message += "```\n"
 
-        if len(dump_differential.offduty_members) > 0:
-            discord_message += f"**Inactive ({DAYS_UNTIL_OFF_DUTY} days)**\n"
+        if len(dump_differential.inactive_members) > 0:
+            discord_message += f"**Inactive ({DAYS_UNTIL_INACTIVE} days)**\n"
             discord_message += f"```fix\n"
-            for member in dump_differential.offduty_members:
+            for member in dump_differential.inactive_members:
                 discord_message += f"- {member.name} - {member.level} {member.class_type} {'(Alt)' if member.is_alt else ''}\n"
             discord_message += "```\n"
 
