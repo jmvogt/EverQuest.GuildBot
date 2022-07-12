@@ -5,6 +5,7 @@ log_parsing:
   cycle_on_start: false
 guild_tracking:
   enabled: true
+  days_until_off_duty: 30
   interval_min: 300
   interval_max: 600
   output_to_discord: true

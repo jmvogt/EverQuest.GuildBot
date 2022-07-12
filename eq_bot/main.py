@@ -7,7 +7,7 @@ from game.logging.entities.log_message import LogMessageType
 from game.buff.buff_manager import BuffManager
 from utils.config import get_config
 
-TICK_LENGTH = 1
+TICK_LENGTH = .1
 
 window = EverQuestWindow()
 player_log_reader = window.get_player_log_reader()
@@ -19,8 +19,8 @@ if get_config('buffing.enabled'):
     buff_manager = BuffManager(window, guild_tracker)
     player_log_reader.observe_messages(LogMessageType.TELL_RECEIVE, buff_manager.handle_tell_message)
 
+# Execute services which need to be activated periodically
 while(True):
-    # Execute services which need to be activated periodically
     if not has_recent_input():
         if get_config('log_parsing.enabled', True):
             player_log_reader.process_new_messages()

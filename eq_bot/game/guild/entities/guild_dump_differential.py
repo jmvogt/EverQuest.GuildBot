@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from datetime import timedelta
 
 from typing import List
 
@@ -11,6 +12,7 @@ class GuildDumpDifferential:
     offduty_members: List[GuildMember]
     logged_on: List[GuildMember]
     logged_off: List[GuildMember]
+    delta_time: timedelta
 
     @property
     def has_differences(self):
