@@ -6,7 +6,7 @@ log_parsing:
 guild_tracking:
   enabled: true
   output_to_discord: true
-  interval: 300
+  interval: 25
   in_game_dump:
     enabled: true
     days_until_inactive: 30

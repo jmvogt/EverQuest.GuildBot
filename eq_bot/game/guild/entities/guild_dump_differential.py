@@ -18,9 +18,7 @@ class GuildDumpDifferential:
     def has_differences(self):
         return len(self.new_members) > 0 or \
             len(self.left_members) > 0 or \
-            len(self.inactive_members) > 0 or \
-            len(self.logged_on) > 0 or \
-            len(self.logged_off) > 0
+            len(self.inactive_members) > 0
 
     def print(self):
         print('-------- New Members --------')
