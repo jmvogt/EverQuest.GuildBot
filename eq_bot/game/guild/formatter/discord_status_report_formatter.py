@@ -15,7 +15,7 @@ class DiscordStatusReportFormatter:
         hours = int(hours % 24)
 
         discord_message = f"__**Guild Status Report**__\n"
-        discord_message += f"_{days} days, {hours} hours, and {minutes} minutes since last report_\n\n"
+        discord_message += f"_{days} days, {hours} hours, and {minutes} minutes since last dump_\n\n"
 
         if len(dump_differential.new_members) > 0:
             discord_message += f"**Joined**\n"
@@ -32,14 +32,14 @@ class DiscordStatusReportFormatter:
             discord_message += "```\n"
 
         if len(dump_differential.inactive_members) > 0:
-            discord_message += f"**Inactive ({DAYS_UNTIL_INACTIVE} days)**\n"
+            discord_message += f"**Inactive ({DAYS_UNTIL_INACTIVE} days in-game)**\n"
             discord_message += f"```fix\n"
             for member in dump_differential.inactive_members:
                 discord_message += f"- {member.name} - {member.level} {member.class_type} {'(Alt)' if member.is_alt else ''}\n"
             discord_message += "```\n"
 
         if len(dkp_summary_differential.offduty_members) > 0:
-            discord_message += f"**Off Duty (DKP)**\n"
+            discord_message += f"**Off Duty (RA < 40%)**\n"
             discord_message += f"```fix\n"
             for member in dkp_summary_differential.offduty_members:
                 discord_message += f"- {member.character_name} - {member.character_class}\n"
