@@ -15,8 +15,10 @@ def build_differential(from_summary: DkpSummary, to_summary: DkpSummary) -> DkpS
     current_time = datetime.now()
 
     for member in to_summary.guild_members:
-        from_member = next((x for x in from_summary.guild_members if x.character_name == member.character_name), None)
-        if from_member and member.__dict__[OFF_DUTY_METRIC_KEY] < OFF_DUTY_METRIC_THRESHOLD:#and not from_member.__dict__[OFF_DUTY_METRIC_KEY] > OFF_DUTY_METRIC_THRESHOLD:
+        from_member = next((x for x in from_summary.guild_members if x.character_id == member.character_id and x.character_rank != "INACTIVE"), None)
+        # If they're below the threshold now, but werent previously
+        if from_member and member.__dict__[OFF_DUTY_METRIC_KEY] < OFF_DUTY_METRIC_THRESHOLD and \
+            not from_member.__dict__[OFF_DUTY_METRIC_KEY] < OFF_DUTY_METRIC_THRESHOLD:
             offduty_members.append(member)
 
     return DkpSummaryDifferential(

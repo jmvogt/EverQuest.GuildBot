@@ -28,8 +28,8 @@ def build_differential(from_dump: GuildDump, to_dump: GuildDump) -> GuildDumpDif
             if from_member.is_online and not member.is_online:
                 logged_off.append(member)
             # Only add to off member list if they weren't off duty in the previous run but are now
-            if (current_time - member.last_seen_on).days > DAYS_UNTIL_OFF_DUTY and not\
-                (current_time - from_member.last_seen_on).days > DAYS_UNTIL_OFF_DUTY:
+            if (current_time - member.last_seen_on).days > DAYS_UNTIL_INACTIVE and not\
+                (current_time - from_member.last_seen_on).days > DAYS_UNTIL_INACTIVE:
                 inactive_members.append(member)
 
     

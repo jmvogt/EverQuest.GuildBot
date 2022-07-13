@@ -17,5 +17,5 @@ class DkpSummaryDifferential:
     def print(self):
         print('-------- Off Duty Members --------')
         for member in self.offduty_members:
-            print (member.character_name)
+            print (member.__dict__)
         print('\n')

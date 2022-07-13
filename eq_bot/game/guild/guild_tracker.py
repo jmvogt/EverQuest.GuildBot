@@ -59,6 +59,7 @@ class GuildTracker:
         dkp_summary_time = datetime.now()
         new_dkp_summary = self._dkp_gateway.fetch_dkp_summary()
 
+        dkp_summary_differential = None
         if self._last_dkp_summary:
             dkp_summary_differential = build_dkp_summary_differential(self._last_dkp_summary, new_dkp_summary)
             dkp_summary_differential.print()
@@ -70,6 +71,8 @@ class GuildTracker:
         dkp_summary_file_name = f"DKP-Summary-{self._get_safe_guild_name()}-{dkp_summary_time_str}{DKP_SUMMARY_EXTENSION}"
         write_json(new_dkp_summary.to_json(), f"{DKP_SUMMARY_OUTPUT_FOLDER}\\{dkp_summary_file_name}")
 
+        return dkp_summary_differential
+
     def _create_dump(self):
         dump_time = datetime.now()
         dump_time_str = dump_time.strftime(DUMP_TIME_FORMAT)
@@ -80,24 +83,29 @@ class GuildTracker:
         new_dump = parse_dump_file(dump_time, dump_filepath)
         new_dump.print()
 
+        dump_differential = None
         if self._last_dump:
             dump_differential = build_dump_differential(self._last_dump, new_dump)
             dump_differential.print()
-
-            if dump_differential.has_differences and OUTPUT_TO_DISCORD:
-                send_discord_message(self._discord_formatter.build_output(dump_differential))
 
         self._last_dump = new_dump
 
         # Backup file in local output for future parsing
         move_file(dump_filepath, f"{DUMP_OUTPUT_FOLDER}\{dump_filename}{DUMP_EXTENSION}")
 
+        return dump_differential
+
     def update_status(self):
+        dump_differential = None
+        dkp_summary_differential = None
         if IN_GAME_DUMP_ENABLED and not self._last_dump or datetime.now() + timedelta(seconds=-FREQUENCY) > self._last_dump.taken_at:
-            #self._create_dump()
-            pass
+            dump_differential = self._create_dump()
         if DKP_SUMMARY_ENABLED and not self._last_dkp_summary or datetime.now() + timedelta(seconds=-FREQUENCY) > self._last_dkp_summary.taken_at:
-            self._create_dkp_summary()
+            dkp_summary_differential = self._create_dkp_summary()
+        
+        if OUTPUT_TO_DISCORD:
+            send_discord_message(self._discord_formatter.build_output(dump_differential, dkp_summary_differential))
+
 
     def is_a_member(self, name):
         if not self._last_dump:
