@@ -6,13 +6,13 @@ from game.guild.entities.guild_dump_differential import GuildDumpDifferential
 from utils.config import get_config
 
 
-DAYS_UNTIL_OFF_DUTY=get_config('guild_tracking.days_until_off_duty', 30)
+DAYS_UNTIL_INACTIVE=get_config('guild_tracking.in_game_dump.days_until_inactive', 30)
 
 
 def build_differential(from_dump: GuildDump, to_dump: GuildDump) -> GuildDumpDifferential:
     new_members = []
     left_members = []
-    offduty_members = []
+    inactive_members = []
     logged_on = []
     logged_off = []
 
@@ -28,9 +28,9 @@ def build_differential(from_dump: GuildDump, to_dump: GuildDump) -> GuildDumpDif
             if from_member.is_online and not member.is_online:
                 logged_off.append(member)
             # Only add to off member list if they weren't off duty in the previous run but are now
-            if (current_time - member.last_seen_on).days > DAYS_UNTIL_OFF_DUTY and not\
-                (current_time - from_member.last_seen_on).days > DAYS_UNTIL_OFF_DUTY:
-                offduty_members.append(member)
+            if (current_time - member.last_seen_on).days > DAYS_UNTIL_INACTIVE and not\
+                (current_time - from_member.last_seen_on).days > DAYS_UNTIL_INACTIVE:
+                inactive_members.append(member)
 
     
     for member in from_dump.members:
@@ -41,7 +41,7 @@ def build_differential(from_dump: GuildDump, to_dump: GuildDump) -> GuildDumpDif
     return GuildDumpDifferential(
         new_members=new_members,
         left_members=left_members,
-        offduty_members=offduty_members,
+        inactive_members=inactive_members,
         logged_on=logged_on,
         logged_off=logged_off,
         delta_time=to_dump.taken_at - from_dump.taken_at)

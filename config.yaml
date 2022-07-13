@@ -5,10 +5,18 @@ log_parsing:
   cycle_on_start: false
 guild_tracking:
   enabled: true
-  days_until_off_duty: 30
-  interval_min: 300
-  interval_max: 600
   output_to_discord: true
+  interval: 300
+  in_game_dump:
+    enabled: true
+    days_until_inactive: 30
+  open_dkp:
+    enabled: true
+    client_id: 6192bc2cf4680
+    root_endpoint: https://7gnjtigho4.execute-api.us-east-2.amazonaws.com/beta
+    off_duty_metric:
+      key: calculated_30
+      threshold: .40
 game:
   root_folder: C:\Program Files (x86)\Steam\steamapps\common\Everquest F2P
 buffing:
